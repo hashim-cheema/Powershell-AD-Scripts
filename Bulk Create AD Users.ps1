@@ -1,6 +1,8 @@
 #Import a list of users and properties about them and bulk creates AD accounts for them
 
-$ADUsers = Import-Csv -Path .\NewUsers.csv   #Store CSV Info in Variable
+$CSV = (Read-Host "Enter the full path of the CSV file")
+
+$ADUsers = Import-Csv -Path $CSV   #Store CSV Info in Variable
 
 foreach ($User in $ADUsers) {   #goes line by line in the CSV to fill up the properties for the user
     
