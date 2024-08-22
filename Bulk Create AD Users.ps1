@@ -50,6 +50,7 @@ foreach ($User in $ADUsers) {   #goes line by line in the CSV to fill up the pro
         }
 
         New-ADUser @Userprops  
+        Write-Host "Adding user '$($Name)'..."
     }
 }
 
