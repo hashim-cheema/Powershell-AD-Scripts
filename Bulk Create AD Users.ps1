@@ -12,6 +12,7 @@ foreach ($User in $ADUsers) {   #goes line by line in the CSV to fill up the pro
     $UserPrincipalName = $User.Email
     $SamAccountName = $User.Username
     $Path = $User.OU
+    $Groups = $User.Group
     $AccountPassword = (ConvertTo-SecureString -AsPlainText $User.Password -Force)
     $Description = $User.Description
     $EmailAddress = $User.Email
@@ -49,8 +50,16 @@ foreach ($User in $ADUsers) {   #goes line by line in the CSV to fill up the pro
             Manager = $Manager
         }
 
-        New-ADUser @Userprops  
+        New-ADUser @Userprops
         Write-Host "Adding user '$($Name)'..."
+
+        #Another for loop to go through each entry under the Group column 
+        foreach ($Group in $Groups.split(',')) {
+        #Add Member to Group
+            Add-ADGroupMember -Identity $Group -Members $SamAccountName
+            Write-Host "Successfully added '$($Name)' to the group '$($Group)'" -ForegroundColor Green
+        }
+
     }
 }
 
