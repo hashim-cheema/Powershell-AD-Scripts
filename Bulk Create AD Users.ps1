@@ -1,4 +1,5 @@
 #Import a list of users and properties about them and bulk creates AD accounts for them
+#Completed Powershell Script 9-25-2024
 
 $CSV = (Read-Host "Enter the full path of the CSV file")
 
